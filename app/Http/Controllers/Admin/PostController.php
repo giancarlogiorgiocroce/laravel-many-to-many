@@ -79,8 +79,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -95,6 +96,12 @@ class PostController extends Controller
         $updated_post = $request->all();
 
         $post->update($updated_post);
+
+        // $post->tags()->attach($updated_post['tags']);
+
+        if(array_key_exists('tags', $updated_post)) $post->tags()->sync($updated_post['tags']);
+        else $post->tags()->detach();
+
         return redirect()->route('admin.posts.index', compact('post'));
     }
 
