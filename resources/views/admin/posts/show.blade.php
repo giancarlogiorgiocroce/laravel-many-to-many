@@ -13,6 +13,13 @@
                 @endif
                 <li class="list-group-item">Orario di pubblicazione: {{ $post->created_at }}</li>
                 <li class="list-group-item">Orario di ultima modifica: {{ $post->updated_at }}</li>
+                @if ($post->tags)
+                    <li class="list-group-item">
+                        @foreach ($post->tags as $tag)
+                            <span class="badge bg-info">{{ $tag->name }}</span>
+                        @endforeach
+                    </li>
+                @endif
         </ul>
         <div class="card-body">
             <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">Torna ai posts</a>

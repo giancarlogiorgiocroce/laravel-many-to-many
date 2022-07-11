@@ -25,6 +25,7 @@
             <th scope="col">Category</th>
             <th scope="col">Date</th>
             <th scope="col">Content</th>
+            <th scope="col">Tags</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -37,6 +38,15 @@
                 <td>{{ $post->category ? $post->category->name : "Nessuna categoria" }}</td>
                 <td>{{ $post->created_at }}</td>
                 <td>{{ $post->content }}</td>
+
+                <td>
+                    @forelse ($post->tags as $tag)
+                        <span class="badge bg-info">{{ $tag->name }}</span>
+                    @empty
+                        <span class="badge bg-secondary text-white">None</span>
+                    @endforelse
+                </td>
+
                 <td class="d-flex">
                     <a href="{{ route('admin.posts.show', $post) }}" class="btn btn-primary">Visualizza</a>
                     <a href="{{ route('admin.posts.edit', $post) }}" class="btn mx-1 btn-success">Modifica</a>
